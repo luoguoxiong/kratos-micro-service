@@ -8,6 +8,6 @@ import (
 )
 
 //go:generate kratos tool wire
-func newTestDao() (*dao, func(), error) {
+func newTestDao() (*Dao, func(), error) {
 	panic(wire.Build(newDao, NewDB, NewRedis, NewMC))
 }

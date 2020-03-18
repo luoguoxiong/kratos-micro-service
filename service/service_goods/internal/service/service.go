@@ -6,13 +6,14 @@ import (
 
 	pb "kratosmicoservice/service/service_goods/api"
 	"kratosmicoservice/service/service_goods/internal/dao"
+
 	"github.com/bilibili/kratos/pkg/conf/paladin"
 
-	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/google/wire"
 )
 
-var Provider = wire.NewSet(New, wire.Bind(new(pb.DemoServer), new(*Service)))
+// Provider ...
+var Provider = wire.NewSet(New, wire.Bind(new(pb.GoodsServer), new(*Service)))
 
 // Service service.
 type Service struct {
@@ -31,27 +32,15 @@ func New(d dao.Dao) (s *Service, cf func(), err error) {
 	return
 }
 
-// SayHello grpc demo func.
-func (s *Service) SayHello(ctx context.Context, req *pb.HelloReq) (reply *empty.Empty, err error) {
-	reply = new(empty.Empty)
-	fmt.Printf("hello %s", req.Name)
-	return
-}
-
-// SayHelloURL bm demo func.
-func (s *Service) SayHelloURL(ctx context.Context, req *pb.HelloReq) (reply *pb.HelloResp, err error) {
-	reply = &pb.HelloResp{
-		Content: "hello " + req.Name,
+// GoodsDetail 获取商品详情
+func (s *Service) GoodsDetail(ctx context.Context, req *pb.GoodsReq) (reply *pb.GoodsRes, err error) {
+	reply = &pb.GoodsRes{
+		GoodsName: `查找商品id为` + req.Id + "的详情！",
 	}
-	fmt.Printf("hello url %s", req.Name)
 	return
 }
 
-// Ping ping the resource.
-func (s *Service) Ping(ctx context.Context, e *empty.Empty) (*empty.Empty, error) {
-	return &empty.Empty{}, s.dao.Ping(ctx)
-}
-
-// Close close the resource.
+// Close 服务关闭后释放资源？？
 func (s *Service) Close() {
+	fmt.Println("服务已关闭！")
 }

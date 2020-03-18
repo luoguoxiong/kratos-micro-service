@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"kratosmicoservice/app/app_wxMini/internal/model"
+
 	"github.com/bilibili/kratos/pkg/conf/paladin"
 	"github.com/bilibili/kratos/pkg/database/sql"
 )
@@ -11,7 +12,7 @@ import (
 func NewDB() (db *sql.DB, cf func(), err error) {
 	var (
 		cfg sql.Config
-		ct paladin.TOML
+		ct  paladin.TOML
 	)
 	if err = paladin.Get("db.toml").Unmarshal(&ct); err != nil {
 		return
@@ -20,11 +21,11 @@ func NewDB() (db *sql.DB, cf func(), err error) {
 		return
 	}
 	db = sql.NewMySQL(&cfg)
-	cf = func() {db.Close()}
+	cf = func() { db.Close() }
 	return
 }
 
-func (d *dao) RawArticle(ctx context.Context, id int64) (art *model.Article, err error) {
+func (d *Dao) RawArticle(ctx context.Context, id int64) (art *model.Article, err error) {
 	// get data from db
 	return
 }
