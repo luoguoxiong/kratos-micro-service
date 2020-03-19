@@ -11,7 +11,7 @@ import (
 	"github.com/bilibili/kratos/pkg/net/rpc/warden"
 )
 
-//go:generate kratos tool wire
+//go:
 type App struct {
 	svc *service.Service
 	http *bm.Engine
